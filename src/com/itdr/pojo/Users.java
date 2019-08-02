@@ -8,6 +8,18 @@ public class Users {
     private Integer type=0;
     private Integer stats=0;
 
+    public Users() {
+    }
+
+    public Users(Integer id, String uname, String psd, String tel, Integer type, Integer stats) {
+        this.id = id;
+        this.uname = uname;
+        this.psd = psd;
+        this.tel = tel;
+        this.type = type;
+        this.stats = stats;
+    }
+
     public Integer getId() {
         return id;
     }
