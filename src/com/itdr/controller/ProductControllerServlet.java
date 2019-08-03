@@ -41,6 +41,9 @@ public class ProductControllerServlet extends HttpServlet {
             case "set_sale_status":
                 rs=set_sale_statusDo(request);
                 break;
+            case "save":
+                rs=savesDo(request);
+                break;
 //            case "upload":
 //                rs=upload(request);
 //                break;
@@ -50,6 +53,44 @@ public class ProductControllerServlet extends HttpServlet {
         response.getWriter().write(rs.toString());
     }
 
+    //插入或更新一个商品
+    private ResponeCode savesDo(HttpServletRequest request) {
+        ResponeCode rs=new ResponeCode();
+        //获取session对象
+        HttpSession session = request.getSession();
+        Users u= (Users) session.getAttribute("user");
+
+        if(u==null){
+            rs.setStatus(3);
+            rs.setMag("请登录后操作");
+            return rs;
+        }
+        if(u.getType()!=1){
+            rs.setStatus(3);
+            rs.setMag("没有操作权限");
+            return rs;
+        }
+
+        //获取参数
+        String categoryId=request.getParameter("categoryId");
+        String name=request.getParameter("name");
+        String subtitle=request.getParameter("subtitle");
+        String mainImage=request.getParameter("mainImage");
+        String subImages=request.getParameter("subImages");
+        String detail=request.getParameter("detail");
+        String price=request.getParameter("price");
+        String stock=request.getParameter("stock");
+        String status=request.getParameter("status");
+        String id=request.getParameter("id");
+
+
+        //调用业务层处理业务
+        rs=pc.updateOrInsertProduct(categoryId,name,subtitle,mainImage,subImages,detail,price,stock,status,id);
+
+        return rs;
+    }
+
+    //根据id改变商品上下架状态
     private ResponeCode set_sale_statusDo(HttpServletRequest request) {
         ResponeCode rs=new ResponeCode();
         //获取session对象
@@ -78,6 +119,7 @@ public class ProductControllerServlet extends HttpServlet {
         return rs;
     }
 
+    //根据id或name搜索商品
     private ResponeCode searchDo(HttpServletRequest request) {
         ResponeCode rs=new ResponeCode();
         //获取session对象
@@ -108,6 +150,7 @@ public class ProductControllerServlet extends HttpServlet {
 
     }
 
+    //根据商品id查询详细信息
     private ResponeCode detailDo(HttpServletRequest request) {
 
         ResponeCode rs=new ResponeCode();
