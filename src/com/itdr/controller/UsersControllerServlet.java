@@ -22,9 +22,7 @@ public class UsersControllerServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //处理乱码
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
+
         //获取请求路径的信息
         String pathInfo=request.getPathInfo();
         String path=PathUTil.getPath(pathInfo);
@@ -39,12 +37,22 @@ public class UsersControllerServlet extends HttpServlet {
             case "login":
                 rs=loginDo(request);
                 break;
+            case "disableuser":
+                rs=disableuserDo(request);
+                break;
         }
 
         //返回响应数据
         response.getWriter().write(rs.toString());
     }
+    //禁用操作
+    private ResponeCode disableuserDo(HttpServletRequest request) {
+        String uid=request.getParameter("uid");
+        ResponeCode rs=uc.selectOne(uid);
+        return rs;
+    }
 
+    //登录操作
     private ResponeCode loginDo(HttpServletRequest request) {
 
 
@@ -59,7 +67,7 @@ public class UsersControllerServlet extends HttpServlet {
         return rs;
     }
 
-    //
+    //获取用户列表操作
     private ResponeCode listDo(HttpServletRequest request){
 
         ResponeCode rs=new ResponeCode();

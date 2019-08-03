@@ -2,6 +2,8 @@ package com.itdr.pojo;
 
 public class Users {
     private Integer id;
+    private Integer categoryid;
+
     private String uname;
     private  String psd;
     private  String tel;
@@ -66,5 +68,17 @@ public class Users {
 
     public void setStats(Integer stats) {
         this.stats = stats;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", uname='" + uname + '\'' +
+                ", psd='" + psd + '\'' +
+                ", tel='" + tel + '\'' +
+                ", type=" + type +
+                ", stats=" + stats +
+                '}';
     }
 }
