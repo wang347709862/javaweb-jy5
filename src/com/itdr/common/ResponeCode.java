@@ -34,10 +34,17 @@ public class ResponeCode<T> {
 
     @Override
     public String toString() {
-        return "ResponeCode{" +
-                "status=" + status +
-                ", data=" + data +
-                ", mag='" + mag + '\'' +
-                '}';
+        if(data==null){//失败
+            return "ResponeCode{" +
+                    "status=" + status +
+                    ", mag='" + mag + '\'' +
+                    '}';
+        }else{//成功
+            return "ResponeCode{" +
+                    "status=" + status +
+                    ", data=" + data +
+                    '}';
+        }
+
     }
 }

@@ -20,4 +20,15 @@ public class Const {
 
     public static final Integer PRODUCT_No_CODE=107;
     public static final String PRODUCT_No_MSG="商品不存在";
+
+    //订单相关状态
+    public static final Integer DINGDAN_PATAMETER_CODE=108;
+    public static final String DINGDAN_PATAMETER_MSG="订单参数为空";
+
+    public static final Integer DINGDAN_No_CODE=109;
+    public static final String DINGDAN_No_MSG="订单不存在";
+
+    public static final Integer DINGDAN_HAVESENDED_CODE=110;
+    public static final String DINGDAN_HAVESENDED_MSG="订单已发货，不必重复操作";
+
 }

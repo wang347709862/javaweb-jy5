@@ -75,21 +75,22 @@ public class ProductService {
         ResponeCode rs = new ResponeCode();
         List li = null;
         //正常情况应该只输入一种搜索条件
-        //当同时有两种搜索条件时
-        if (productId.length() > 0 && productName.length() > 0) {
-            rs.setStatus(Const.PRODUCT_PATAMETER_WRONG_CODE);
-            rs.setMag(Const.PRODUCT_PATAMETER_WRONG_MSG);
-            System.out.println("aaa");
-            return rs;
-        }
-//        两种搜索条件全为空
-        if (productId.length() == 0 && productName.length() == 0) {
+        //        两种搜索条件全为空,要么没给，要么给了没值
+        if ((productId==null || productId.length() == 0 )&& (productName==null || productName.length() == 0)) {
             rs.setStatus(Const.PRODUCT_PATAMETER_CODE);
             rs.setMag(Const.PRODUCT_PATAMETER_MSG);
             System.out.println("bbb");
             return rs;
         }
-        //搜索条件是id
+        //当同时有两种搜索条件时
+        if (productId!=null && productName!=null && productId.length() > 0 && productName.length() > 0) {
+            rs.setStatus(Const.PRODUCT_PATAMETER_WRONG_CODE);
+            rs.setMag(Const.PRODUCT_PATAMETER_WRONG_MSG);
+            System.out.println("aaa");
+            return rs;
+        }
+
+        //搜索条件是id，这里明明不可能有空指针了还高亮，有毒
         if (productId.length() > 0) {
             Integer pid = null;
             try {
@@ -140,7 +141,16 @@ public class ProductService {
             return rs;
         }
 
-        //没问题就继续更新
+        //判断是否有必要更新，节省资源
+        Products p = pd.selectDetail(productId);
+        int st=p.getStatus();
+        if(st==status){
+            rs.setStatus(1);
+            rs.setMag("商品状态无必要修改");
+            return rs;
+        }
+        
+        //有必要就继续更新
         int row = pd.updateProductStatus(productId, status);
 
         String append = null;
