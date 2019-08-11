@@ -3,6 +3,7 @@ package com.itdr.controller;
 import com.itdr.common.ResponeCode;
 import com.itdr.pojo.Users;
 import com.itdr.service.DingDanService;
+import com.itdr.utils.JsonUtils;
 import com.itdr.utils.PathUTil;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,9 @@ public class DingDanControllerServlet extends HttpServlet {
         }
 
         //返回响应数据
-        response.getWriter().write(rs.toString());
+        //        返回响应数据json格式
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(JsonUtils.obj2String(rs));
     }
 
     //查询所有订单

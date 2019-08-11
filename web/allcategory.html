@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询所有子类</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link rel="icon" href="/imgs/01.JPEG" type="image/x-icon" />
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/productlist.css">
+    <link rel="stylesheet" href="css/allcategory.css">
+</head>
+<body>
+<div id="cs">
+    <div id="cs_left">
+        <div id="lf">
+            <span id="lf1">欢迎你，ceshi!</span>
+        </div>
+        <div id="lf2">
+            <div class="lf3">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <img src="imgs/q.png" alt="">
+                <div><a href="">用户管理</a></div>
+                <img src="imgs/xl.png" alt="">
+            </div>
+            <ul class="lf3_1" >
+                <li><a href="userlist.html">用户列表</a></li>
+                <li><a href="userban.html">禁用用户</a></li>
+            </ul>
+            <div  class="lf3">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <img src="imgs/tt.png" alt="">
+                <div><a href="">商品管理</a></div>
+                <img src="imgs/xl.png" alt="">
+            </div>
+            <ul class="lf3_1">
+                <li><a href="productlist.html">商品列表</a></li>
+                <li><a href="prodetail.html">商品详情</a></li>
+                <li><a href="prosearch.html">商品搜索</a></li>
+                <li><a href="proupdate.html">更新/新增</a></li>
+                <li><a href="proshangjia.html">上/下架</a></li>
+            </ul>
+            <div class="lf3">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <img src="imgs/cv.png" alt="">
+                <div><a href="">订单管理</a></div>
+                <img src="imgs/xl.png" alt="">
+            </div>
+            <ul class="lf3_1">
+                <li><a href="dingdanlist.html">订单列表</a></li>
+                <li><a href="dingdandetail.html">查询详情</a></li>
+                <li><a href="dingdanupdate.html">修改发货状态</a></li>
+            </ul>
+            <div class="lf3">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <img src="imgs/ff.png" alt="">
+                <div><a href="">分类管理</a></div>
+                <img src="imgs/xl.png" alt="">
+            </div>
+            <ul class="lf3_1" id="lf3_ul1">
+                <li><a href="updatecategory.html">修改分类名称</a></li>
+                <li><a href="increasecategory.html">增加分类</a></li>
+                <li><a href="directcategory.html">查询直接子类</a></li>
+                <li><a href="allcategory.html">查询所有子类</a></li>
+            </ul>
+            <div class="lf3">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <img src="imgs/dd.png" alt="">
+                <div><a href="">其他设置</a></div>
+                <img src="imgs/xl.png" alt="">
+            </div>
+            <ul class="lf3_1">
+                <li>122</li>
+                <li>66</li>
+                <li>6656</li>
+                <li>\68</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div id="cs_right">
+        <div id="right1">
+
+            <div id="right11">
+                &nbsp;  &nbsp;  &nbsp;
+                <a href=""><img src="imgs/01.png" alt=""></a>
+                <a href=""><img src="imgs/03.png" alt=""></a>
+                <a href=""><img src="imgs/04.png" alt=""></a>
+                <input type="text" placeholder="输入查询信息" name="kh" id="rt">
+                <input type="button" value="搜索"  id="rt1">
+            </div>
+            <div id="right12">
+                <a href=""><img src="imgs/05.png" alt=""></a>
+                <a href=""><img src="imgs/06.png" alt=""></a>
+                <a href=""><img src="imgs/07.png" alt=""></a>
+                <a href=""><img src="imgs/08.png" alt=""></a>
+
+
+                <a href=""><img src="imgs/09.png" alt=""></a>
+            </div>
+        </div>
+
+        <!--右下部-->
+        <div id="right-bottom">
+            <form action="/manage/product/detail.do" method="post">
+                <input type="text" id="t1" placeholder="输入你想查询的父类ID">
+                <input type="button" value="查询" id="b1">
+            </form>
+            <div id="dd">
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $(".lf3").click(
+        function () {
+            $(this).next().slideToggle();
+        }
+    );
+    $("#b1").click(
+        function () {
+            var val = $("#t1").val();
+            // alert(val);
+            $.post(
+                "/manage/category/get_deep_category.do",
+                {categoryId:val},
+                function (dt) {
+                    if(dt.status!==0){
+                        alert(dt.mag);
+                    }else{
+                        alert(dt.data);
+                    }
+                }
+            );
+        }
+    );
+</script>
+</html>

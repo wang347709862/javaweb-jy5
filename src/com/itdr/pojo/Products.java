@@ -134,20 +134,20 @@ public class Products {
     @Override
     public String toString() {
         return
-                "{id=" + id +
-                ", categoryid=" + categoryid +
-                ", parentCategoryId=" + parentCategoryId +
-                ", name='" + name + '\'' +
-                ", subtitle='" + subtitle + '\'' +
-                ", imagehost='" + imagehost + '\'' +
-                ", mainImage='" + mainImage + '\'' +
-                ", subImages='" + subImages + '\'' +
-                ", detail='" + detail + '\'' +
-                ", price=" + price +
-                ", stock=" + stock +
-                ", status=" + status +
-                ", createtime='" + createtime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
+                "{id:" + id +
+                ", categoryid:" + categoryid +
+                ", parentCategoryId:" + parentCategoryId +
+                ", name:" + name +
+                ", subtitle:'" + subtitle +
+                ", imagehost:" + imagehost +
+                ", mainImage:" + mainImage +
+                ", subImages:" + subImages +
+                ", detail:'" + detail  +
+                ", price:" + price +
+                ", stock:" + stock +
+                ", status:" + status +
+                ", createtime:" + createtime +
+                ", updateTime:" + updateTime  +
                 '}';
     }
 }

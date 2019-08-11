@@ -142,20 +142,20 @@ public class DingDan {
 
     @Override
     public String toString() {
-        return "DingDan{" +
-                "orderno='" + orderno + '\'' +
-                ", payment=" + payment +
-                ", paymentType=" + paymentType +
-                ", paymentTypeDesc='" + paymentTypeDesc + '\'' +
-                ", postage=" + postage +
-                ", status=" + status +
-                ", statusDesc='" + statusDesc + '\'' +
-                ", paymentTime='" + paymentTime + '\'' +
-                ", sendTime='" + sendTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", closeTime='" + closeTime + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", orderItemVoList=" + orderItemVoList +
+        return "{" +
+                "orderno:'" + orderno + '\'' +
+                ", payment:" + payment +
+                ", paymentType:" + paymentType +
+                ", paymentTypeDesc:'" + paymentTypeDesc + '\'' +
+                ", postage:" + postage +
+                ", status:" + status +
+                ", statusDesc:'" + statusDesc + '\'' +
+                ", paymentTime:'" + paymentTime + '\'' +
+                ", sendTime:'" + sendTime + '\'' +
+                ", endTime:'" + endTime + '\'' +
+                ", closeTime:'" + closeTime + '\'' +
+                ", createTime:'" + createTime + '\'' +
+                ", orderItemVoList:" + orderItemVoList +
                 '}';
     }
 }

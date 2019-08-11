@@ -94,14 +94,14 @@ public class Dingdan_Product {
     @Override
     public String toString() {
         return "{" +
-                "orderno='" + orderno + '\'' +
-                ", productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", productImage='" + productImage + '\'' +
-                ", currentUnitPrice=" + currentUnitPrice +
-                ", quantity=" + quantity +
-                ", totalPrice=" + totalPrice +
-                ", createTime='" + createTime + '\'' +
+                "orderno:'" + orderno + '\'' +
+                ", productId:" + productId +
+                ", productName:'" + productName + '\'' +
+                ", productImage:'" + productImage + '\'' +
+                ", currentUnitPrice:" + currentUnitPrice +
+                ", quantity:" + quantity +
+                ", totalPrice:" + totalPrice +
+                ", createTime:'" + createTime + '\'' +
                 '}';
     }
 }

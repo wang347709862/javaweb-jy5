@@ -143,13 +143,18 @@ public class ProductService {
 
         //判断是否有必要更新，节省资源
         Products p = pd.selectDetail(productId);
+        if(p==null){
+            rs.setStatus(105);
+            rs.setMag("没有这个商品");
+            return rs;
+        }
         int st=p.getStatus();
         if(st==status){
             rs.setStatus(1);
             rs.setMag("商品状态无必要修改");
             return rs;
         }
-        
+
         //有必要就继续更新
         int row = pd.updateProductStatus(productId, status);
 

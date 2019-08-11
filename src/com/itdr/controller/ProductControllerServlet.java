@@ -3,6 +3,7 @@ package com.itdr.controller;
 import com.itdr.common.ResponeCode;
 import com.itdr.pojo.Users;
 import com.itdr.service.ProductService;
+import com.itdr.utils.JsonUtils;
 import com.itdr.utils.PathUTil;
 
 import javax.servlet.ServletException;
@@ -31,9 +32,13 @@ public class ProductControllerServlet extends HttpServlet {
         switch (path){
             case "list":
                 rs=listDo(request);
+
                 break;
+
             case "detail":
-                rs=detailDo(request);
+                rs=detailDo(request,response);
+
+
                 break;
             case "search":
                 rs=searchDo(request);
@@ -49,8 +54,9 @@ public class ProductControllerServlet extends HttpServlet {
 //                break;
         }
 
-        //返回响应数据
-        response.getWriter().write(rs.toString());
+        response.setContentType("text/json;charset=utf-8");
+        response.getWriter().write(JsonUtils.obj2String(rs));
+
     }
 
     //插入或更新一个商品
@@ -60,16 +66,6 @@ public class ProductControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Users u= (Users) session.getAttribute("user");
 
-        if(u==null){
-            rs.setStatus(3);
-            rs.setMag("请登录后操作");
-            return rs;
-        }
-        if(u.getType()!=1){
-            rs.setStatus(3);
-            rs.setMag("没有操作权限");
-            return rs;
-        }
 
         //获取参数
         String categoryId=request.getParameter("categoryId");
@@ -151,7 +147,7 @@ public class ProductControllerServlet extends HttpServlet {
     }
 
     //根据商品id查询详细信息
-    private ResponeCode detailDo(HttpServletRequest request) {
+    private ResponeCode detailDo(HttpServletRequest request,HttpServletResponse response) {
 
         ResponeCode rs=new ResponeCode();
         //获取session对象
@@ -173,7 +169,6 @@ public class ProductControllerServlet extends HttpServlet {
 
         //调用业务层处理业务
         rs=pc.selectDetail(productId);
-
         return rs;
     }
 
