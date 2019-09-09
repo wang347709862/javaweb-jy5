@@ -2,13 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品上/下架</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-    <link rel="icon" href="/imgs/01.JPEG" type="image/x-icon" />
+    <title>商品详情</title>
+    <link rel="icon" href="/imgs/01.JPEG" type="image/x-icon"/>
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/proshangjia.css">
+    <link rel="stylesheet" href="css/prodetail.css">
     <link rel="stylesheet" href="css/productlist.css">
 </head>
 <body>
@@ -28,7 +26,7 @@
                 <li><a href="userlist.html">用户列表</a></li>
                 <li><a href="userban.html">禁用用户</a></li>
             </ul>
-            <div  class="lf3">
+            <div class="lf3">
                 <span>&nbsp;&nbsp;&nbsp;</span>
                 <img src="imgs/tt.png" alt="">
                 <div><a href="">商品管理</a></div>
@@ -47,7 +45,7 @@
                 <div><a href="">订单管理</a></div>
                 <img src="imgs/xl.png" alt="">
             </div>
-            <ul class="lf3_1">
+            <ul class="lf3_1" id="lf3_ul3">
                 <li><a href="dingdanlist.html">订单列表</a></li>
                 <li><a href="dingdandetail.html">查询详情</a></li>
                 <li><a href="dingdanupdate.html">修改发货状态</a></li>
@@ -58,7 +56,7 @@
                 <div><a href="">分类管理</a></div>
                 <img src="imgs/xl.png" alt="">
             </div>
-            <ul class="lf3_1">
+            <ul class="lf3_1" id="lf3_ul4">
                 <li><a href="updatecategory.html">修改分类名称</a></li>
                 <li><a href="increasecategory.html">增加分类</a></li>
                 <li><a href="directcategory.html">查询平级子类</a></li>
@@ -80,17 +78,16 @@
     </div>
 
 
-
     <div id="cs_right">
         <div id="right1">
 
             <div id="right11">
-                &nbsp;  &nbsp;  &nbsp;
+                &nbsp; &nbsp; &nbsp;
                 <a href=""><img src="imgs/01.png" alt=""></a>
                 <a href=""><img src="imgs/03.png" alt=""></a>
                 <a href=""><img src="imgs/04.png" alt=""></a>
                 <input type="text" placeholder="输入查询信息" name="kh" id="rt">
-                <input type="button" value="搜索"  id="rt1">
+                <input type="button" value="搜索" id="rt1">
             </div>
             <div id="right12">
                 <a href=""><img src="imgs/05.png" alt=""></a>
@@ -101,22 +98,18 @@
             </div>
         </div>
 
+        <!--右下部-->
         <div id="right-bottom">
             <form action="/manage/product/detail.do" method="post">
-                <input type="text" id="t1" placeholder="输入你想更新的商品ID" >
-                <input type="radio" name="shangjia"  value="1" id="t2" checked >上架
-                <input type="radio" name="shangjia" id="t3" value="0"> 下架
-                <input type="button" value="更新" id="b1">
-                <div id="inp">
-
-                </div>
+                <input type="text" id="t1" placeholder="输入你想查询的商品ID">
+                <input type="button" value="查询" id="b1">
             </form>
             <div id="dd">
+
             </div>
 
         </div>
     </div>
-
 </div>
 </body>
 <script src="js/jquery-3.3.1.js"></script>
@@ -126,24 +119,40 @@
             $(this).next().slideToggle();
         }
     );
-
-    //单选按钮的jQuery选择器
     $("#b1").click(
         function () {
-            var val = $('input[name="shangjia"]:checked').val();
-            // alert(val);
-            $.post(
-                "/manage/product/set_sale_status.do",
-                {productId:$("#t1").val(),status:val},
+            var val=$("#t1").val();
+            $.post("/manage/product/detail.do?productId="+val,
                 function (dt) {
-                    if(dt.status!==0){
-                        alert(dt.mag);
-                    }else{
-                        alert(dt.data);
-                    }
+                var a= "<table><tr><th width='100px'>商品id"
+                     + "</th><th width='100px'>商品名称"+"</th><th width='100px'>图片展示"
+                    + "</th><th width='100px'>分类id"+"</th><th width='100px'>父类id"
+                    + "</th><th width='100px'>宣传内容"+"</th><th width='100px'>单价"
+                    +"</th><th width='100px'>库存"+"</th><th width='100px'>状态"
+                    + "</th><th width='100px'>创建时间"+"</th><th width='100px'>更新时间"
+                    + "</th></tr>";
+
+                    var s = "<tr><td width='100px'>"
+                        + dt.data.id + "</td><td width='100px'>"
+                        + dt.data.name + "</td><td width='100px'>"
+                        + dt.data.mainImage + "</td><td width='100px'>"
+                        + dt.data.categoryid + "</td><td width='100px'>"
+                        + dt.data.parentCategoryId + "</td><td width='100px'>"
+                        + dt.data.subtitle + "</td><td width='100px'>"
+                        + dt.data.price + "</td><td width='100px'>"
+                        + dt.data.stock + "</td><td width='100px'>"
+                        + dt.data.status + "</td><td width='100px'>"
+                        + dt.data.createtime + "</td><td width='100px'>"
+                        + dt.data.updateTime + "</td>"
+                        + "</tr></table>";
+                    $("#dd").empty();
+                    $("#dd").append(a);
+                    $("#dd").append(s);
                 }
+
             );
         }
     );
+
 </script>
 </html>

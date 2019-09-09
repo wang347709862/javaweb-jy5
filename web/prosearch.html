@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品上/下架</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <title>商品搜索</title>
     <link rel="icon" href="/imgs/01.JPEG" type="image/x-icon" />
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/proshangjia.css">
+    <link rel="stylesheet" href="css/prosearch.css">
     <link rel="stylesheet" href="css/productlist.css">
+    <style>
+        #inp{
+            background-color: #0DC6B4;
+            width:160px;
+        }
+    </style>
 </head>
 <body>
 <div id="cs">
@@ -80,7 +84,6 @@
     </div>
 
 
-
     <div id="cs_right">
         <div id="right1">
 
@@ -103,20 +106,17 @@
 
         <div id="right-bottom">
             <form action="/manage/product/detail.do" method="post">
-                <input type="text" id="t1" placeholder="输入你想更新的商品ID" >
-                <input type="radio" name="shangjia"  value="1" id="t2" checked >上架
-                <input type="radio" name="shangjia" id="t3" value="0"> 下架
-                <input type="button" value="更新" id="b1">
+                <input type="text" id="t1" placeholder="输入你想查询的商品名称">
+                <input type="button" value="查询" id="b1">
+
                 <div id="inp">
 
                 </div>
             </form>
             <div id="dd">
             </div>
-
         </div>
     </div>
-
 </div>
 </body>
 <script src="js/jquery-3.3.1.js"></script>
@@ -127,23 +127,84 @@
         }
     );
 
-    //单选按钮的jQuery选择器
-    $("#b1").click(
+    $("#t1").keyup(
         function () {
-            var val = $('input[name="shangjia"]:checked').val();
-            // alert(val);
+            // $("#inp").show();
+            var val=$("#t1").val();
             $.post(
-                "/manage/product/set_sale_status.do",
-                {productId:$("#t1").val(),status:val},
+                "/manage/product/search.do?productId&productName="+val,
                 function (dt) {
                     if(dt.status!==0){
-                        alert(dt.mag);
+                        $("#inp").empty();
+                        // alert(dt.mag);
                     }else{
-                        alert(dt.data);
+                        $("#inp").empty();
+                        $("#inp").append("<ul>");
+                        for(var i =0;i<dt.data.length;i++){
+                            var pname=dt.data[i].name;
+                            var ss="<li>"+pname+"</li>";
+                            $("#inp ul").append(ss);
+                        }
+                        $("#inp").append("</ul>");
                     }
                 }
             );
         }
     );
+
+    $("#t1").blur(
+        function(){
+            $("#inp").hide();
+        }
+    );
+    $("#t1").focus(
+        function(){
+            $("#inp").show();
+        }
+    );
+
+
+    $("#b1").click(
+        function(){
+            var val=$("#t1").val();
+            $.post(
+                "/manage/product/search.do?productId&productName="+val,
+                function (dt) {
+                    if(dt.data===null){
+                        alert(dt.mag);
+                    }else{
+                        var a= "<table id='ttt' ><tr><th width='100px'>商品id"
+                            + "</th><th width='100px' >商品名称"+"</th><th width='100px'>图片展示"
+                            + "</th><th width='100px'>分类id"+"</th><th width='100px'>父类id"
+                            + "</th><th width='150px'>宣传内容"+"</th><th width='100px'>单价"
+                            +"</th><th width='100px'>库存"+"</th><th width='100px'>状态"
+                            + "</th><th width='200px'>创建时间"+"</th><th width='200px'>更新时间"
+                            + "</th></tr>";
+                        var s="";
+                        for(var i=0;i<dt.data.length;i++){
+                            s += "<tr ><td width='110px'>"
+                                + dt.data[i].id + "</td><td width='110px'>"
+                                + dt.data[i].name + "</td><td width='110px'>"
+                                + dt.data[i].mainImage + "</td><td width='110px'>"
+                                + dt.data[i].categoryid + "</td><td width='110px'>"
+                                + dt.data[i].parentCategoryId + "</td><td width='110px'>"
+                                + dt.data[i].subtitle + "</td><td width='110px'>"
+                                + dt.data[i].price + "</td><td width='110px'>"
+                                + dt.data[i].stock + "</td><td width='110px'>"
+                                + dt.data[i].status + "</td><td width='200px'>"
+                                + dt.data[i].createtime + "</td><td width='200px'>"
+                                + dt.data[i].updateTime + "</td>"
+                                + "</tr>";
+                        }
+                        s+="</table>";
+                        $("#dd").empty();
+                        $("#dd").append(a+s);
+                        // $("#dd").append(s);
+                    }
+                }
+            );
+        }
+    );
+
 </script>
 </html>

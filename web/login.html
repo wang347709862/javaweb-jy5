@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action= "/manage/user/login.do" method="post" >
+    账户：<input type="text" name="username" placeholder="用户名" id="un">
+    <br>
+    密码：<input type="password" name="password" placeholder="密码" id="pd">
+    <br>
+    <input type="button" value="提交" id="btn">
+    <div id="nrhz">
+
+    </div>
+</form>
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $("#btn").click(
+        function () {
+            var un=$("#un").val();
+            var pd=$("#pd").val();
+            $.post(
+                "/manage/user/login.do",
+                {username:un,password:pd},
+                function (dt) {
+                    if(dt.status!==0){
+                        $("#nrhz").empty();
+                        $("#nrhz").append("<p>"+dt.mag+"</p>")
+                    }else{
+                        window.open("home.html");
+                    }
+                },"JSON"
+            );
+        }
+    );
+
+</script>
+
+</html>

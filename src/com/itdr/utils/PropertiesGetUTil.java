@@ -15,6 +15,7 @@ public class PropertiesGetUTil {
         }
         String value=ps.getProperty(key);
         return value;
+//        Class.forName("PropertiesGetUTil").newInstance()
     }
 
 //    public static void main(String[] args) {

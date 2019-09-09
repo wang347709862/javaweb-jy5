@@ -32,19 +32,24 @@ public class ResponeCode<T> {
     //成功时返回状态码和数据，
     // 失败时返回状态码和信息
 
-    @Override
-    public String toString() {
-        if(data==null){//失败
-            return "ResponeCode{" +
-                    "status=" + status +
-                    ", mag='" + mag + '\'' +
-                    '}';
-        }else{//成功
-            return "ResponeCode{" +
-                    "status=" + status +
-                    ", data=" + data +
-                    '}';
-        }
-
-    }
+//    @Override
+//    public String toString() {
+//        return "{" +
+//                "status:" + status +
+//                ", data:" + data +
+//                ", mag:" + mag +
+//                '}';
+//}
+////        if(data==null){//失败
+////            return "ResponeCode{" +
+////                    "status=" + status +
+////                    ", mag='" + mag + '\'' +
+////                    '}';
+////        }else{//成功
+////            return "ResponeCode{" +
+////                    "status=" + status +
+////                    ", data=" + data +
+////                    '}';
+////        }
+//
 }

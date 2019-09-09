@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>商品上/下架</title>
+    <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
     <link rel="icon" href="/imgs/01.JPEG" type="image/x-icon" />
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/proshangjia.css">
-    <link rel="stylesheet" href="css/productlist.css">
+
+
+
 </head>
 <body>
 <div id="cs">
@@ -34,7 +35,7 @@
                 <div><a href="">商品管理</a></div>
                 <img src="imgs/xl.png" alt="">
             </div>
-            <ul class="lf3_1" id="lf3_ul1">
+            <ul class="lf3_1">
                 <li><a href="productlist.html">商品列表</a></li>
                 <li><a href="prodetail.html">商品详情</a></li>
                 <li><a href="prosearch.html">商品搜索</a></li>
@@ -61,7 +62,7 @@
             <ul class="lf3_1">
                 <li><a href="updatecategory.html">修改分类名称</a></li>
                 <li><a href="increasecategory.html">增加分类</a></li>
-                <li><a href="directcategory.html">查询平级子类</a></li>
+                <li><a href="directcategory.html">查询直接子类</a></li>
                 <li><a href="allcategory.html">查询所有子类</a></li>
             </ul>
             <div class="lf3">
@@ -79,8 +80,8 @@
         </div>
     </div>
 
-
-
+    
+    
     <div id="cs_right">
         <div id="right1">
 
@@ -100,23 +101,9 @@
                 <a href=""><img src="imgs/09.png" alt=""></a>
             </div>
         </div>
+        
 
-        <div id="right-bottom">
-            <form action="/manage/product/detail.do" method="post">
-                <input type="text" id="t1" placeholder="输入你想更新的商品ID" >
-                <input type="radio" name="shangjia"  value="1" id="t2" checked >上架
-                <input type="radio" name="shangjia" id="t3" value="0"> 下架
-                <input type="button" value="更新" id="b1">
-                <div id="inp">
-
-                </div>
-            </form>
-            <div id="dd">
-            </div>
-
-        </div>
     </div>
-
 </div>
 </body>
 <script src="js/jquery-3.3.1.js"></script>
@@ -124,25 +111,6 @@
     $(".lf3").click(
         function () {
             $(this).next().slideToggle();
-        }
-    );
-
-    //单选按钮的jQuery选择器
-    $("#b1").click(
-        function () {
-            var val = $('input[name="shangjia"]:checked').val();
-            // alert(val);
-            $.post(
-                "/manage/product/set_sale_status.do",
-                {productId:$("#t1").val(),status:val},
-                function (dt) {
-                    if(dt.status!==0){
-                        alert(dt.mag);
-                    }else{
-                        alert(dt.data);
-                    }
-                }
-            );
         }
     );
 </script>
